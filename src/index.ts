@@ -114,6 +114,11 @@ function podChange(action: string, pod: k8s.V1Pod) {
 
 }
 
+process.on('SIGTERM', () => {
+    debug('SIGTERM received clearing all pixels');
+    blinkt.clear();
+});
+
 try {
     //blinkt.showInitialAnimation();
 
