@@ -16,7 +16,6 @@ interface Color {
 
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
-const path: string = '/api/v1/pods';
 const default_brightness: number = 0.2;
 const default_startColor: Color = BASIC_COLOURS.GREEN;
 const default_stopColor: Color = BASIC_COLOURS.RED;
@@ -27,12 +26,7 @@ if (!process.env.NODE_NAME) {
 }
 
 const nodeName: string = process.env.NODE_NAME;
-const namespaceToColor = {
-    'default': BASIC_COLOURS.WHITE,
-    'kube-system': BASIC_COLOURS.MAGENTA,
-    'kube-public': BASIC_COLOURS.LIME,
-    'kube-node-lease': BASIC_COLOURS.YELLOW
-};
+const namespaceToColor = require('/etc/blinkt-k8s-pod-visualization/namespaces.json');
 
 const podList: Array<k8s.V1Pod> = [];
 
@@ -141,7 +135,7 @@ try {
     //blinkt.showInitialAnimation();
 
     const listFn = () => k8sApi.listPodForAllNamespaces();
-    const informer = k8s.makeInformer(kc, path, listFn);
+    const informer = k8s.makeInformer(kc, '/api/v1/pods', listFn);
 
     informer.on('add', (pod: k8s.V1Pod) => { podChange('add', pod); });
     informer.on('update', (pod: k8s.V1Pod) => { podChange('update', pod); });
