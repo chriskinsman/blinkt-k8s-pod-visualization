@@ -76,24 +76,25 @@ function deletePod(pod: k8s.V1Pod) {
 
     podList.splice(podIndex, 1);
     let endIndex = podList.length;
-    debug(`deletePod name: ${pod.metadata?.name}, total pods: ${endIndex}`);
+    debug(`deletePod name: ${pod.metadata?.name}, index: ${podIndex}, total pods: ${endIndex}`);
     if (podIndex < 8) {
         //blinkt.flashPixel({ pixel: podIndex, times: 2, intervalms: 500, ...default_stopColor });
         if (endIndex > 8) {
             endIndex = 8;
         }
         else if (endIndex < 8) {
-            for (let clearIndex = 0; clearIndex < 8; clearIndex++) {
+            for (let clearIndex = endIndex; clearIndex < 8; clearIndex++) {
                 blinkt.setPixel({ pixel: clearIndex, r: 0, g: 0, b: 0 });
             }
         }
 
         for (let pixel = 0; pixel < endIndex; pixel++) {
-            if (pod.metadata?.namespace && namespaceToColor[pod.metadata?.namespace]) {
-                blinkt.setPixel({ pixel, brightness: default_brightness, ...namespaceToColor[pod.metadata?.namespace] });
+            let podPixel = podList[pixel];
+            if (podPixel?.metadata?.namespace && namespaceToColor[podPixel.metadata.namespace]) {
+                blinkt.setPixel({ pixel, brightness: default_brightness, ...namespaceToColor[podPixel.metadata.namespace] });
             }
             else {
-                debug(`Missing color mapping for namespace: ${pod.metadata?.namespace}`);
+                debug(`Missing color mapping for namespace: ${podList[pixel].metadata?.namespace}`);
             }
 
         }
