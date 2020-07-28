@@ -24,7 +24,7 @@ spec:
         env:
 {{ if .Values.debug }}          
         - name: DEBUG
-          value: speedtest-agent*
+          value: blinkt-k8s-pod-visualization*
 {{ end }}
 
         - name: NODE_NAME

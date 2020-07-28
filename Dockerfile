@@ -1,4 +1,4 @@
-FROM node:12-alpine AS build
+FROM balenalib/raspberry-pi-alpine-node:latest AS build
 RUN apk add --no-cache make gcc g++ python
 ARG GITHUB_RUN_NUMBER
 
@@ -8,7 +8,7 @@ RUN npm ci && \
     npm run build && \
     npm ci --production
 
-FROM node:12-alpine as release
+FROM balenalib/raspberry-pi-alpine-node:latest as release
 
 WORKDIR /blinkt-k8s-pod-visualization
 COPY --from=build ./blinkt-k8s-pod-visualization/dist ./dist
