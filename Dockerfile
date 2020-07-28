@@ -1,5 +1,6 @@
 FROM balenalib/raspberry-pi-alpine-node:latest AS build
-RUN apk add --no-cache make gcc g++ python
+#RUN apk add --no-cache make gcc g++ python
+RUN apt install make gcc g++ python -y
 ARG GITHUB_RUN_NUMBER
 
 WORKDIR /blinkt-k8s-pod-visualization
