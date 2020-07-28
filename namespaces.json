@@ -1,0 +1,20 @@
+{
+    "default": {
+        "name": "purple",
+        "r": 128,
+        "g": 0,
+        "b": 128
+    },
+    "kube-system": {
+        "name": "midnightblue",
+        "r": 25,
+        "g": 25,
+        "b": 112
+    },
+    "kube-public": {
+        "name": "white",
+        "r": 255,
+        "g": 255,
+        "b": 255
+    }
+}

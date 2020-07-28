@@ -1,0 +1,40 @@
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: {{ include "blinkt-k8s-pod-visualization.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "blinkt-k8s-pod-visualization.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "blinkt-k8s-pod-visualization.selectorLabels" . | nindent 8 }}
+    spec:
+      tolerations:
+      # this toleration is to have the daemonset runnable on master nodes
+      # remove it if your masters can't run pods
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule    
+      serviceAccountName: {{ include "blinkt-k8s-pod-visualization.serviceAccountName" . }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: chriskinsman/blinkt-k8s-pod-visualization
+        env:
+{{ if .Values.debug }}          
+        - name: DEBUG
+          value: speedtest-agent*
+{{ end }}
+
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        volumeMounts:
+        - mountPath: /etc/blinkt-k8s-pod-visualization
+          name: config-volume
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Release.Name }}-config

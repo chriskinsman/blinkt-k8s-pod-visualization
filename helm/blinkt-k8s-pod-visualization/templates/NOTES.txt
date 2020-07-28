@@ -1,0 +1,4 @@
+blinkt-k8s-pod-visualization deployed.
+
+Color mappings:
+{{ .Values.namespaces }}
