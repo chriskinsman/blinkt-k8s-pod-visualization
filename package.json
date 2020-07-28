@@ -1,0 +1,27 @@
+{
+  "name": "blinkt-k8s-pod-visualization",
+  "version": "1.0.0",
+  "description": "A visualization of pod placement in a k8s cluster using Pimoroni Blinkt displays",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json"
+  },
+  "keywords": [
+    "blinkt",
+    "k8s",
+    "pimoroni",
+    "visualization",
+    "pod"
+  ],
+  "author": "Chris Kinsman",
+  "license": "ISC",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.12.0",
+    "blinkt-kit": "^2.2.0",
+    "debug": "^4.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
+}
