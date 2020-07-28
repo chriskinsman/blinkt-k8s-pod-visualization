@@ -36,19 +36,7 @@ const namespaceToColor = {
 
 const podList: Array<k8s.V1Pod> = [];
 
-function addPod(pod: k8s.V1Pod, color: Color) {
-    podList.push(pod);
-    let numPods = podList.length;
-    debug(`addPod name: ${pod.metadata?.name}, total pods: ${numPods}`);
-    if (numPods < 9) {
-        let newPixel = numPods - 1;
-        //blinkt.flashPixel({ pixel: newPixel, times: 2, intervalms: 500, ...default_startColor });
-        blinkt.setPixel({ pixel: newPixel, brightness: default_brightness, ...color });
-        blinkt.show();
-    }
-}
-
-function deletePod(pod: k8s.V1Pod) {
+function findPod(pod: k8s.V1Pod): number {
     let podIndex = -1;
     for (let i = 0; i < podList.length; i++) {
         if (podList[i].metadata?.name === pod.metadata?.name) {
@@ -57,6 +45,30 @@ function deletePod(pod: k8s.V1Pod) {
         }
     }
 
+    return podIndex;
+}
+
+function addPod(pod: k8s.V1Pod, color: Color) {
+    let podIndex = findPod(pod);
+
+    if (podIndex == -1) {
+        podList.push(pod);
+        let numPods = podList.length;
+        debug(`addPod name: ${pod.metadata?.name}, total pods: ${numPods}`);
+        if (numPods < 9) {
+            let newPixel = numPods - 1;
+            //blinkt.flashPixel({ pixel: newPixel, times: 2, intervalms: 500, ...default_startColor });
+            blinkt.setPixel({ pixel: newPixel, brightness: default_brightness, ...color });
+            blinkt.show();
+        }
+    }
+    else {
+        debug(`addPod already exists name: ${pod.metadata?.name}`);
+    }
+}
+
+function deletePod(pod: k8s.V1Pod) {
+    let podIndex = findPod(pod);
     if (podIndex === -1) {
         debug(`deletePod unable to find pod: ${pod.metadata?.name}`);
         return;
@@ -99,7 +111,7 @@ function podChange(action: string, pod: k8s.V1Pod) {
                 break;
 
             case 'update':
-
+                addPod(pod, namespaceToColor[pod.metadata?.namespace]);
                 break;
 
             default:
@@ -116,6 +128,7 @@ function podChange(action: string, pod: k8s.V1Pod) {
 
 process.on('SIGTERM', () => {
     debug('SIGTERM received clearing all pixels');
+    //blinkt.showFinalAnimation();
     blinkt.clear();
 });
 
