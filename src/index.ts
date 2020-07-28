@@ -17,7 +17,7 @@ interface Color {
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
 const path: string = '/api/v1/namespaces/default/pods';
-const default_brightness: number = 0.3;
+const default_brightness: number = 0.2;
 const default_startColor: Color = BASIC_COLOURS.GREEN;
 const default_stopColor: Color = BASIC_COLOURS.RED;
 
@@ -112,6 +112,10 @@ function podChange(action: string, pod: k8s.V1Pod) {
 
             case 'update':
                 addPod(pod, namespaceToColor[pod.metadata?.namespace]);
+                break;
+
+            case 'delete':
+                deletePod(pod);
                 break;
 
             default:
