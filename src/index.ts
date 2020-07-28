@@ -16,7 +16,7 @@ interface Color {
 
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
-const path: string = '/api/v1/namespaces/default/pods';
+const path: string = '/api/v1/pods';
 const default_brightness: number = 0.2;
 const default_startColor: Color = BASIC_COLOURS.GREEN;
 const default_stopColor: Color = BASIC_COLOURS.RED;
