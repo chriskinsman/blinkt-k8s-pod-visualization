@@ -127,12 +127,12 @@ function podChange(action: string, pod: k8s.V1Pod) {
 
 process.on('SIGTERM', () => {
     debug('SIGTERM received clearing all pixels');
-    blinkt.showFinalAnimation();
+    blinkt.showFinalAnimation(default_stopColor);
     blinkt.clear();
 });
 
 try {
-    blinkt.showInitialAnimation();
+    blinkt.showInitialAnimation(default_startColor);
 
     const listFn = () => k8sApi.listPodForAllNamespaces();
     const informer = k8s.makeInformer(kc, '/api/v1/pods', listFn);
