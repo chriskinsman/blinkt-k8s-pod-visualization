@@ -51,7 +51,7 @@ function addPod(pod: k8s.V1Pod, color: Color) {
         debug(`addPod name: ${pod.metadata?.name}, total pods: ${numPods}`);
         if (numPods < 9) {
             let newPixel = numPods - 1;
-            //blinkt.flashPixel({ pixel: newPixel, times: 2, intervalms: 500, ...default_startColor });
+            blinkt.flashPixel({ pixel: newPixel, times: 2, intervalms: 500, ...default_startColor });
             blinkt.setPixel({ pixel: newPixel, brightness: default_brightness, ...color });
             blinkt.show();
         }
@@ -72,7 +72,7 @@ function deletePod(pod: k8s.V1Pod) {
     let endIndex = podList.length;
     debug(`deletePod name: ${pod.metadata?.name}, index: ${podIndex}, total pods: ${endIndex}`);
     if (podIndex < 8) {
-        //blinkt.flashPixel({ pixel: podIndex, times: 2, intervalms: 500, ...default_stopColor });
+        blinkt.flashPixel({ pixel: podIndex, times: 2, intervalms: 500, ...default_stopColor });
         if (endIndex > 8) {
             endIndex = 8;
         }
@@ -127,12 +127,12 @@ function podChange(action: string, pod: k8s.V1Pod) {
 
 process.on('SIGTERM', () => {
     debug('SIGTERM received clearing all pixels');
-    //blinkt.showFinalAnimation();
+    blinkt.showFinalAnimation();
     blinkt.clear();
 });
 
 try {
-    //blinkt.showInitialAnimation();
+    blinkt.showInitialAnimation();
 
     const listFn = () => k8sApi.listPodForAllNamespaces();
     const informer = k8s.makeInformer(kc, '/api/v1/pods', listFn);
