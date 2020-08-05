@@ -12,9 +12,9 @@
         "b": 112
     },
     "kube-public": {
-        "name": "white",
+        "name": "orange",
         "r": 255,
-        "g": 255,
-        "b": 255
+        "g": 165,
+        "b": 0
     }
 }
