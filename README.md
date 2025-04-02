@@ -12,6 +12,8 @@ Prerequisites:
 
 Install with:
 ```bash
+cd helm/blinkt-k8s-pod-visualization
+kubectl create namespace blinkt
 helm install blinkt-k8s-pod-visualization . --set-file namespaces=../../namespaces.json --namespace blinkt
 ```
 
