@@ -1,7 +1,6 @@
 name: blinkt-k8s-pod-visualization
 on:
   push:
-    branches: *
   pull_request:
     branches: [master]
 
