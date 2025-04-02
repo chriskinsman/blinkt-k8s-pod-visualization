@@ -2,7 +2,7 @@ FROM node:22-alpine AS build
 RUN apk add --no-cache make gcc g++ python3 && ln -sf python3 /usr/bin/python
 RUN apk add libgpiod 
 RUN apk add libgpiod-dev
-RUN apk add libnode-dev
+RUN apk add nodejs-dev
 ARG GITHUB_RUN_NUMBER
 
 WORKDIR /blinkt-k8s-pod-visualization
