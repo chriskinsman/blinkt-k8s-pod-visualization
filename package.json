@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@kubernetes/client-node": "^1.1.0",
-    "blinkt-kit": "https://github.com/chriskinsman/blinkt-kit/commit/2dc11c5cddd8b4ab57e5674a8915ff46d18174ce",
+    "blinkt-kit": "github:chriskinsman/blinkt-kit#2dc11c5cddd8b4ab57e5674a8915ff46d18174ce",
     "debug": "^4.4.0"
   },
   "devDependencies": {
