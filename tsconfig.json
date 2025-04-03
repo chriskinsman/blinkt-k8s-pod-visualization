@@ -2,11 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "noImplicitAny": false,
-        "suppressImplicitAnyIndexErrors": true,
         "target": "es6",
         "moduleResolution": "node",
         "removeComments": false,
         "sourceMap": true,
+        "skipLibCheck": true,
         "noLib": false,
         "declaration": true,
         "outDir": "dist",
@@ -24,7 +24,6 @@
         "dist"
     ],
     "include": [
-        "*.ts",
         "src/**/*"
     ]
 }
