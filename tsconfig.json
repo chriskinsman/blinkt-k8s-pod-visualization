@@ -13,12 +13,13 @@
         "rootDir": "src",
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "importHelpers": true
+        "importHelpers": true,
+        "types": []
         // enable this when it works with tslint, or we switch to prettier
         // "declarationMap": true
     },
     "exclude": [
-        "node_modules",
+        "node_modules/**",
         "src/*_test.ts",
         "dist"
     ],
