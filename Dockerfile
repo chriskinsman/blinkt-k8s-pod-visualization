@@ -9,7 +9,7 @@ RUN npm ci && \
     npm ci --production
 
 FROM node:22-alpine3.20 AS release
-
+RUN apk add --no-cache libgpiod=1.6.4-r3
 WORKDIR /blinkt-k8s-pod-visualization
 COPY --from=build ./blinkt-k8s-pod-visualization/dist ./dist
 COPY --from=build ./blinkt-k8s-pod-visualization/node_modules ./node_modules

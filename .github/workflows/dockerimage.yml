@@ -16,8 +16,8 @@ jobs:
         with:
           buildx-version: latest
           qemu-version: latest
-      - name: Available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }}
+      # - name: Available platforms
+      #   run: echo ${{ steps.buildx.outputs.platforms }}
       - name: Docker login
         run: docker login --username ${{ secrets.DOCKER_HUB_REGISTRY_USERNAME }} --password ${{ secrets.DOCKER_HUB_REGISTRY_SECRET }}
       - name: Run Buildx

@@ -13,7 +13,7 @@ spec:
         {{- include "blinkt-k8s-pod-visualization.selectorLabels" . | nindent 8 }}
     spec:
       nodeSelector:
-         kubernetes.io/arch: arm
+         kubernetes.io/arch: arm64
       tolerations:
       # this toleration is to have the daemonset runnable on master nodes
       # remove it if your masters can't run pods
@@ -22,7 +22,7 @@ spec:
       serviceAccountName: {{ include "blinkt-k8s-pod-visualization.serviceAccountName" . }}
       containers:
       - name: {{ .Chart.Name }}
-        image: chriskinsman/blinkt-k8s-pod-visualization
+        image: chriskinsman/blinkt-k8s-pod-visualization:rpio-gpiomem-update-latest
         env:
 {{ if .Values.debug }}          
         - name: DEBUG
